@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+    <title>MIS·发布系统 </title> 
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
+<link rel="stylesheet" href="../style/global.css" type="text/css" /> 
+<script type="text/javascript" src="../javascript/function.js" ></script> 
+</head> 
+ 
+<body> 
+<div class="main-box"> 
+	<div class="head-dark-box"> 
+		<?php
+            echo $_obj['title'];
+        ?>
+	</div> 
+	<div class="body-box tip-msg"> 
+		提示: 带 <img src="../images/star.gif" alt="*" /> 的项目为必填信息. 
+	</div> 
+	<form method="post" action="product_info.php" class="white-box"> 
+        <table class="alt-table" cellspacing="0" border="0"> 
+            <tr class="<?php echo $titleClass['username'];?>"> 
+				<td class="require-field">借用人</td> 
+                <td><input type="text" class="text-box" name="username" size="20" value="<?php
+                    echo $_obj['username'];
+                    ?>"/>
+                    <span class="<?php echo $errorClass['username'];?>"><?php echo $errorList['username'];?></span>
+                </td>
+			</tr> 
+            <tr class="<?php echo $titleClass['project'];?>"> 
+				<td>项目名称</td> 
+				<td><input type="text" class="text-box" name="project" size="20" value="<?php
+                        echo $_obj['project'];
+                    ?>" />  
+                    <span class="<?php echo $errorClass['project'];?>"><?php echo $errorList['project'];?></span>
+				</td> 
+			</tr> 
+            <tr class="<?php echo $titleClass['prdc_name'];?>"> 
+				<td class="require-field">物品名称</td> 
+				<td><input type="text" class="text-box" name="prdc_name" size="20" value="<?php
+                        echo $_obj['prdc_name'];
+                    ?>" />  
+                    <span class="<?php echo $errorClass['prdc_name'];?>"><?php echo $errorList['prdc_name'];?></span>
+				</td> 
+			</tr> 
+            <tr class="<?php echo $titleClass['prdc_count'];?>"> 
+				<td class="require-field">物品数量</td> 
+				<td><input type="text" class="text-box" name="prdc_count" size="10" value="<?php
+                        echo $_obj['prdc_count'];
+                    ?>" />
+                    <span class="<?php echo $errorClass['prdc_count'];?>"><?php echo $errorList['prdc_count'];?></span>
+				</td> 
+			</tr> 
+            <tr class="<?php echo $titleClass['prdc_price'];?>"> 
+				<td>物品单价</td> 
+				<td><input type="text" class="text-box" name="prdc_price" size="10" value="<?php
+                        echo $_obj['prdc_price'];
+                    ?>" />
+                    <span class="<?php echo $errorClass['prdc_price'];?>"><?php echo $errorList['prdc_price'];?></span>
+				</td> 
+			</tr> 
+            <tr class="<?php echo $titleClass['from'];?>"> 
+				<td class="require-field">FROM</td> 
+				<td><input type="text" class="text-box" name="from" size="10" value="<?php
+                        echo $_obj['from'];
+                    ?>" />
+                    <span class="<?php echo $errorClass['from'];?>"><?php echo $errorList['from'];?></span>
+				</td> 
+			</tr> 
+            <tr class="<?php echo $titleClass['dest'];?>"> 
+				<td class="require-field">Destination</td> 
+				<td><input type="text" class="text-box" name="dest" size="10" value="<?php
+                        echo $_obj['dest'];
+                    ?>" />
+                    <span class="<?php echo $errorClass['dest'];?>"><?php echo $errorList['dest'];?></span>
+				</td> 
+			</tr> 
+            <tr class="<?php echo $titleClass['curdate'];?>"> 
+                <td class="require-field"><?php echo $_obj['type'];?></td> 
+				<td><input type="text" class="text-box" name="curdate" size="20" value="<?php
+                        echo $_obj['curdate'];
+                    ?>"/>
+                    <span class="<?php echo $errorClass['curdate'];?>"><?php echo $errorList['curdate'];?></span>
+                </td> 
+			</tr> 
+            <tr class="<?php echo $titleClass['backdate'];?>"> 
+				<td class="require-field">归还时间</td> 
+				<td><input type="text" class="text-box" name="backdate" size="20" value="<?php
+                        echo $_obj['backdate'];
+                    ?>"/>
+                </td> 
+			</tr> 
+            <tr class="<?php echo $titleClass['comments'];?>"> 
+				<td>备注</td> 
+                <td><textarea class="text-box" name="comments" cols="40" rows="4"><?php echo $_obj['comments'];?></textarea> 
+					小于100字. 
+				</td> 
+			</tr> 
+        </table>
+		<div class="dark-row center"> 
+            <input type="hidden" name="action" value="<?php echo $_obj['action'];?>" />
+			<input type="submit" class="button" value="<?php
+                    echo $_obj['buttonValue'];
+                ?>"/>
+		</div> 
+	</form> 
+</div> 
+<div class="main-box"> 
+	<div class="foot-sql"> 
+		Query Times: <?php echo $_obj['queryTime'];?>
+        Execute Time: <?php echo $_obj['executeTime'];?>
+        ms 
+	</div> 
+</div> 
+</body> 
+<script type='text/javascript'>
+    function choose(){
+        document.getElementById('department').value = "<?php echo $_obj['department'];?>";
+    }
+</script>
+</html> 

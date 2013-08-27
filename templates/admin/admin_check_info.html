@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>MIS发布系统</title>
+<meta http-equiv="content-type" content="text/html;charset=utf8">
+<link rel="stylesheet" href="../style/global.css" type="text/css">
+<script type="text/javascript" src="../javascript/function.js"></script>
+
+<body onload=InitDocument([['prdc_status','department','project'],"<?php echo $_pla.':'.$_dpt.':'.$_prj;?>"])>
+<div class="search-table">
+<div class="head-dark-box">
+   查询物品借出情况 
+</div>
+<div>
+      <?php 
+            if (0==count($_project) && 0==count($_other)){
+        ?>
+            <center>目前没有物品请添加</center>
+        <?php
+            }
+            else{
+        ?>
+        <form name="option" action="product_info.php?action=<?php echo $action;?>" method="post">
+            <table class="alt-table" cellpadding="0" cellspacing="0" border='0'>
+                <tr>
+                    <td width="200px">状态
+                        <select name='prdc_status' id='prdc_status' onchange="submit('prdc_status')">
+                            <option value="本地">本地</option>
+                            <option value="寄出">寄出</option>
+                        </select>
+                    </td>
+                    <td width="200px">部门
+                        <select name='department' id='department' onchange="submit('department')">
+                            <option value='All'>All</option>
+                            <option value='App'>App</option>
+                            <option value='Bsp'>Bsp</option>
+                            <option value='System'>System</option>
+                            <option value='Telecom'>Telecom</option>
+                            <option value='Platform'>Platform</option>
+                            <option value='Integration'>Integration</option>
+                        </select>
+                    </td>
+                    <td>项目
+                        <select name='project' id='project' onchange="submit('project')">
+                        <?php
+                        for ($i=0; $i<count($_project); $i++){
+                        ?>
+                        <option value="<?php echo $_project[$i]['project'];?>"><?php echo $_project[$i]['project'];?></option>
+                        <?php
+                        }
+                        if (count($_other)){
+                        ?>
+                        <option value='Other'>Other</option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+            <?php
+                }
+            ?>
+    </div>
+    <div>
+    <?php
+    if('寄出' == $_pla){    
+    ?>
+        <table class="borrow-table" cellspacing="0" border="0">
+            <tr>
+                <th>项目名称</th>
+                <th>物品名称</th>
+                <th>数    量</th>
+                <th>寄出地点</th>
+                <th>详    情</th>
+            </tr>
+    <?php
+    }
+    else{
+    ?>
+        <table class="borrow-table" cellspacing="0" border='0'>
+            <tr>
+                <th>项目名称</th>
+                <th>物品名称</th>
+                <th>员    工</th>
+                <th>数    量</th>
+                <th>详    情</th>
+            </tr>
+        <?php
+        }
+        ?>
+            <?php 
+            if ($_borrowInfo){
+                for ($i=0; $i<count($_borrowInfo); $i++){
+                    if ("本地" == $_pla){
+            ?>
+            <tr class="light-row">
+                <td><?php echo $_borrowInfo[$i]['project'];?></td>
+                <td><?php echo $_borrowInfo[$i]['prdc_name'];?></td>
+                <td><?php echo $_borrowInfo[$i]['username'];?></td>
+                <td><?php echo $_borrowInfo[$i]['prdc_count'];?></td>
+                <td><a href="product_info.php?action=detail&uid=<?php echo $_borrowInfo[$i]['uid'];?>&prj=<?php echo $_borrowInfo[$i]['project'];?>&prdc_name=<?php echo $_borrowInfo[$i]['prdc_name'];?>">
+                        查  看</a></td>
+            </tr>
+            <?php 
+                }
+                else{
+            ?>
+            <tr class="light-row">
+                <td><?php echo $_borrowInfo[$i]['project'];?></td>
+                <td><?php echo $_borrowInfo[$i]['prdc_name'];?></td>
+                <td><?php echo $_borrowInfo[$i]['prdc_count'];?></td>
+                <td><?php echo $_borrowInfo[$i]['destination'];?></td>
+                <td><a href="product_info.php?action=detail&local=<?php echo $_pla;?>&prj=<?php echo $_borrowInfo[$i]['project'];?>&prdc_name=<?php echo $_borrowInfo[$i]['prdc_name'];?>">
+                        查  看</a></td>
+            </tr>
+            <?php
+                }
+              }
+            }
+            else{
+            ?>
+            <tr class="light-row"><td colspan="5" style="width: 100%; font-size: 20px; text-align: center; color: red;" >无借出信息</td></tr>
+            <?php
+            }
+            ?>
+        </table>
+</div>
+<div class="main-box"> 
+    <div class="foot-sql"> 
+        Query Times: <?php
+echo $queryTime;
+?>
+  Execute Time: <?php
+echo $executeTime; 
+?>
+ ms  
+    </div> 
+</div>
+<body>
+</html>

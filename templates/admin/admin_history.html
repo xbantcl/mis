@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>MIS发布系统</title>
+<meta http-equiv="content-type" content="text/html;charset=utf8">
+<link rel="stylesheet" href="../style/global.css" type="text/css">
+<script type="text/javascript" src="../javascript/function.js" ></script>
+</script>
+</head>
+
+<body>
+<div class="main-box">
+    <div class="head-dark-box">
+       物品借出记录信息 
+    </div>
+    <div>
+        <table class="product-table" cellpadding="0" cellspacing="0" border='0'>
+            <tr class='dark-row'>
+                <th colspan="7"><?php echo $_prj;?></th>
+            </tr>
+            <tr class='dark-row'>
+                <td>状    态</td>
+                <td>项目名称</td>
+                <td>物品名称</td>
+                <td>物品数量</td>
+                <td>借出日期</td>
+                <td>归还日期</td>
+                <td>备    注</td> 
+            </tr>
+            <?php
+                for ($i=0; $i<count($_borrowInfo); $i++){
+             ?>  
+            <tr class='light-row'>
+                <?php
+                    if ('0' == $_borrowInfo[$i]['status']){
+                       echo "<td>借 出</td>";
+                    }
+                    else{
+                       echo "<td>归 还</td>";
+                    }
+                ?>
+                <td><?php echo $_prj;?></td>
+                <td><?php echo $_borrowInfo[$i]['prdc_name'];?></td>
+                <td><?php echo $_borrowInfo[$i]['prdc_count'];?></td>
+                <td><?php echo $_borrowInfo[$i]['borrow_date'];?></td>
+                <td><?php echo $_borrowInfo[$i]['back_date'];?></td>
+                <td><?php echo $_borrowInfo[$i]['comments'];?></td>
+            </tr>
+            <?php
+                }
+            ?>
+        </table>
+    </div>
+    <div class="dark-row center">
+        <input type="submit" class="button" value="返 回" onclick="window.history.back(-1)"/>
+    </div>
+</div>
+<div class="main-box"> 
+    <div class="foot-sql"> 
+        Query Times: <?php
+echo $queryTime;
+?>
+  Execute Time: <?php
+echo $executeTime;
+?>
+ ms  
+    </div> 
+</div>
+<body>
+</html>

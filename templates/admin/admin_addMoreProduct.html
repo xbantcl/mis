@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>MIS发布系统</title>
+<meta http-equiv="content-type" content="text/html;charset=utf8">
+<link rel="stylesheet" href="../style/global.css" type="text/css">
+<script type="text/javascript" src="../javascript/function.js" ></script>
+</script>
+</head>
+
+<body onload=InitDocument([['project','department'],"<?php echo $_prj.':'.$_dpt;?>"])>
+<div class="main-box">
+    <div class="head-dark-box">
+       批量借用物品 
+    </div>
+    <?php 
+    if (0==count($_project) && 0==count($_other)){
+    ?>
+    <center>目前没有物品请添加</center>
+    <?php
+    }
+    else{
+    ?>
+    <form name='borrowinfo' id='borrowinfo' method='post' action='product_info.php'>
+        <div>
+            <table class="alt-table" cellspacing="0">
+                <tr>
+                    <td>项目
+                       <select name='project' id='project' onchange="choose(['project','department'],'addmore')"> 
+                           <?php
+                           for ($i=0; $i<count($_project); $i++){
+                           ?>
+                           <option value="<?php echo $_project[$i]['project'];?>"><?php echo $_project[$i]['project'];?></option>
+                           <?php
+                           }
+                           if (count($_other)){
+                           ?>
+                           <option value='Other'>Other</option>
+                           <?php
+                           }
+                           ?>
+                        </select>
+                     </td>
+                </tr>
+        </div>
+        <div>
+            <table class="alt-table" cellspacing="0">
+            <?php
+                if (count($_productInfo) >= 5){
+                    if (0 == (count($_productInfo)%5)){
+                        $total = count($_productInfo)/5;
+                    }
+                    else{
+                        $total = floor(count($_productInfo)/5) + 1;
+                        $single = count($_productInfo) % 5;
+                        $flag = true;
+                    }
+                    $count = 5;
+                }
+                else{
+                    $total = 1;
+                    $count = count($_productInfo);
+                }
+                
+                $index = 0;
+                for ($i=0; $i<$total; $i++){
+                    if ($flag && ($total-1) == $i){
+                        $count = $single;
+                    }
+            ?>
+                <tr class='dark-row'>
+                    <?php
+                    for ($j=0; $j<$count; $j++){
+                    ?>  
+                    <td><input type="checkbox" name="productlist[]" id="productlist" value="<?php echo $_productInfo[$index]['prdc_name'];?>">
+                        <?php echo $_productInfo[$index]['prdc_name'];?>(
+                        <?php echo $_productInfo[$index]['prdc_count'];?>/
+                        <?php echo $_productInfo[$index]['total'];?>)</td> 
+                    <?php
+                        $index += 1;
+                    }
+                    ?>
+                </tr>
+                <?php
+                }
+                ?>
+            </table>
+        </div>
+        <div>
+            <table class="alt-table" cellspacing="0">
+                <tr class='dark-row'>
+                    <td>部 门
+                        <select name='department' id='department' onchange="choose(['project','department'], 'addmore')">
+                            <option value='All'>All</option>
+                            <option value='App'>App</option>
+                            <option value='Bsp'>Bsp</option>
+                            <option value='System'>System</option>
+                            <option value='Telecom'>Telecom</option>
+                            <option value='Platform'>Platform</option>
+                            <option value='Integration'>Integration</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table class="alt-table" cellspacing="0" border="0" style="text-align: center;">
+                <tr class='dark-row'>
+                    <th>借用人</th>
+                    <th>借出日期</th>
+                    <th>数量</th>
+                    <th>备注</th>
+                </tr>
+                <?php
+                for ($i=0; $i<count($_userInfo); $i++){
+                ?>  
+                <tr class='dark-row'>
+                    <td><input type="checkbox" name="userlist[]" id="userlist" value="<?php echo $_userInfo[$i]['uid'];?>">
+                        <?php echo $_userInfo[$i]['username'];?></td>
+                    <td><input type="text" name="<?php echo $_userInfo[$i]['uid'];?>borrowdate" size="10" value="<?php echo date("Y-m-d");?>"></td>
+                    <td><input type="text" name="<?php echo $_userInfo[$i]['uid'];?>count" size="5" value="1"></td>
+                    <td><input type="text" name="<?php echo $_userInfo[$i]['uid'];?>comments" value="备注"></td>
+                </tr>
+                <?php
+                }
+                ?>
+            </table>
+        </div>
+        <div class="dark-row center"> 
+            <input type="hidden" name="action" value="<?php echo $_obj['action'];?>" />
+            <input type="submit" class="button" value="<?php
+            echo $_obj['buttonValue'];
+            ?>"/>
+        </div>
+    </form>
+<?php
+}
+?>
+</div>
+<div class="main-box"> 
+    <div class="foot-sql"> 
+        Query Times: <?php
+echo $queryTime;
+?>
+  Execute Time: <?php
+echo $executeTime;
+?>
+ ms  
+    </div> 
+</div>
+<body>
+</html>

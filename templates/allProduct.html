@@ -1,0 +1,58 @@
+<div style="padding-bottom: 5px;">
+    <?php 
+    if (0==count($_project) && 0==count($_other)){
+    ?>
+    <center>目前没有物品可以借</center>
+    <?php
+    }
+    else{
+    ?>
+    <form name="option" action="index.php?action=allproduct" method="post">
+        <table class="product" cellpadding="0" cellspacing="0" border='0'>
+            <tr><td style="text-align: left;">项目
+                    <select name='project' id='project' onchange="submit('project')">
+                        <?php
+                        for ($i=0; $i<count($_project); $i++){
+                        ?>
+                        <option value="<?php echo $_project[$i]['project'];?>"><?php echo $_project[$i]['project'];?></option>
+                        <?php
+                        }
+                        if (count($_other)){
+                        ?>
+                        <option value='other'>Other</option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <?php
+    }
+    ?>
+</div>
+<div>
+    <table class="product" cellpadding="0" cellspacing="0" border='0'>
+        <tr class='dark-row'>
+            <th>项目名称</th>
+            <th>物品名称</th>
+            <th>剩余</th>
+            <th>总数</th>
+            <th>From</th>
+        </tr>
+        <?php
+        for ($i=0; $i<count($_productInfo); $i++){
+        ?>  
+        <tr class='dark-row'>
+            <td><?php echo $_prj;?></td>
+            <td><?php echo $_productInfo[$i]['prdc_name'];?></td>
+            <td><?php echo $_productInfo[$i]['prdc_count'];?></td>
+            <td><?php echo $_productInfo[$i]['total'];?></td>
+            <td><?php echo $_productInfo[$i]['comefrom'];?></td>
+        </tr>
+        <?php
+        }
+        ?>
+    </table>
+</div>

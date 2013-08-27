@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<title>CMS·发布系统 </title> 
+<meta http-equiv="content-type" content="text/html;charset=utf8" /> 
+<meta name="Generator" content="EditPlus" /> 
+<meta name="Author" content="CMS" /> 
+<meta name="Keywords" content="CMS" /> 
+<link rel="stylesheet" href="../style/global.css" type="text/css" /> 
+<script type="text/javascript" src="../javascript/function.js" ></script> 
+</head>
+
+<body>
+<div class="main-box">
+    <div class="head-dark-box">
+        <?php
+            echo $_obj['title'];
+        ?>
+    </div>
+    <table class="alt-table" cellspacing="0">
+    <?php
+        for ($i=0; $i<count($user_info); $i++)
+        {
+            echo '<tr class="dark-row">';
+            echo    '<td>借用人:</td>';
+            echo    '<td>' . $user_info[$i]['username'] . '</td>';
+            echo    '<td>部门:</td>';
+            echo    '<td>' . $user_info[$i]['department'] . '</td>';
+            echo '</tr>';
+            for ($j=0; $j<count($user_info[$i][0]); $j++)
+            {
+                echo "<tr>";
+                echo    "<td>物品名称:</td>";
+                echo        "<td>" . $user_info[$i][0][$j]['prdc_name'] . "</td>";
+                echo        "<td>物品数量:</td>";
+                echo        "<td>" . $user_info[$i][0][$j]['prdc_count'] . "</td>";
+                echo "</tr>";
+            }
+        }
+        ?>
+    </table>
+
+</body>
+</html>

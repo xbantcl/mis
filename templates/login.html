@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<title>TCL-CD/Login</title> 
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
+<link rel="stylesheet" href="style/global.css" type="text/css" /> 
+</head> 
+ 
+<body class="center" onload="document.getElementById('login-form').username.focus()"> 
+<div id="login-box"> 
+<div class="main-box"> 
+    <div class="head-dark-box">
+        <?php
+            if (!empty($_GET['user']))
+            {
+                echo 'TCL/CD   管理员登录';
+            }
+            else{
+                echo 'TCL/CD   IT 民工登录';
+            }
+        ?>
+    </div> 
+    <div class="<?php echo $className;?>"> 
+        <?php echo $message;?> 
+    </div> 
+    <form method="post" action="login.php" id="login-form">
+        <table cellspacing="0"> 
+            <tr class="dark-row"> 
+                <td class="width-24percent">用户名</td> 
+                <td><input type="text" class="text-box" size="15" name="username" /></td> 
+            </tr> 
+            <tr class="light-row"> 
+                <td>密&nbsp;&nbsp;码</td> 
+                <td><input type="password" class="text-box" size="15" name="password" /></td> 
+            </tr> 
+            <tr class="dark-row"> 
+                <td><input type="hidden" name="action" value="login" /> </td> 
+                <td><input type="submit" class="button" value="登录系统" /></td> 
+            </tr> 
+        </table> 
+    </form> 
+</div> 
+</div> 
+</body> 
+</html>
